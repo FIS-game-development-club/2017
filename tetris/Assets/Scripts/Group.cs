@@ -6,6 +6,7 @@ public class Group : MonoBehaviour
 {
     public float speed;
     public GameObject board;
+    public GameObject pivot;
 
     void Update()
     {
