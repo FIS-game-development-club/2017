@@ -50,8 +50,13 @@ public class Cube : MonoBehaviour
 
     void OnCollisionEnter(Collision c)
     {
-        Debug.Log("Hello");
         if (master != null)
             master.Collision();
+    }
+
+    void OnTriggerEnter(Collider c)
+    {
+        if (master != null)
+            master.Trigger();
     }
 }
