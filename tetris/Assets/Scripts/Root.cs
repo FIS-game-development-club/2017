@@ -22,6 +22,16 @@ public class Root : MonoBehaviour
         {
             pice.MakeMove(1);
         }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            pice.MakeTurn(1);
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            pice.MakeTurn(-1);
+        }
     }
 
     public void NextTurn()

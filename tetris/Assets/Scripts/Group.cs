@@ -9,7 +9,6 @@ public class Group : MonoBehaviour
     public GameObject pivot;
     private Root root;
     public int target_x;
-    public int last_x;
 
     void Start()
     {
@@ -20,25 +19,10 @@ public class Group : MonoBehaviour
     {
         gameObject.transform.Translate(Vector3.down * Time.deltaTime * speed);
 
-        if (transform.position.x > target_x)
-        {
-            transform.Translate(new Vector3(-1, 0, 0) * speed * Time.deltaTime);
-            if (transform.position.x < target_x)
-            {
-                transform.position = new Vector3(target_x, transform.position.y, transform.position.z);
-            }
-        }
-        if (transform.position.x < target_x)
-        {
-            transform.Translate(new Vector3(1, 0, 0) * speed * Time.deltaTime);
-            if (transform.position.x > target_x)
-            {
-                transform.position = new Vector3(target_x, transform.position.y, transform.position.z);
-            }
-        }
+        transform.position = new Vector3(target_x, transform.position.y, 0);
     }
 
-    public void Collision()
+    public void Hit()
     {
         Cube[] cubes = GetComponentsInChildren<Cube>();
         for (int i = 0; i < cubes.Length; i++)
@@ -51,19 +35,42 @@ public class Group : MonoBehaviour
                 cubes[i].target_y = 1;
             cubes[i].speed = 10;
             cubes[i].master = null;
+            cubes[i].c.isTrigger = true;
         }
         root.NextTurn();
         Destroy(gameObject);
     }
 
-    public void Trigger()
-    {
-        target_x = last_x;
-    }
-
     public void MakeMove(int x)
     {
-        last_x = target_x;
+        Cube[] cubes = GetComponentsInChildren<Cube>();
+        for(int i = 0; i < cubes.Length; i++)
+        {
+            RaycastHit[] hits = Physics.RaycastAll(new Ray(cubes[i].transform.position, new Vector3(x, 0, 0)), 1.0f);
+            for (int j = 0; j < hits.Length; j++)
+            {
+                Cube c = hits[j].collider.gameObject.GetComponent<Cube>();
+                if (c == null)
+                    return;
+                bool is_part_of_this = false;
+                for (int k = 0; k < cubes.Length; k++)
+                {
+                    if (c == cubes[k])
+                        is_part_of_this = true;
+                }
+                if (!is_part_of_this)
+                    return;
+            }
+        }
         target_x += x;
+    }
+
+    public void MakeTurn(int r)
+    {
+        //Model w/ complex numbers!
+        Transform p = transform.FindChild("pivot");
+        if (p == null)
+            return;
+        p.transform.Rotate(Vector3.forward * 90 * r);
     }
 }

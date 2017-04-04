@@ -7,13 +7,21 @@ public class Cube : MonoBehaviour
     public int target_x;
     public int target_y;
     public float speed;
+    public Collider c;
 
     public Group master;
+
+    void Start()
+    {
+        c = gameObject.GetComponent<Collider>();
+    }
 
     void Update()
     {
         if (master != null)
             return;
+      
+
         if (transform.position.x > target_x)
         {
             transform.Translate(new Vector3(-1, 0 ,0) * speed * Time.deltaTime);
@@ -48,15 +56,11 @@ public class Cube : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision c)
-    {
-        if (master != null)
-            master.Collision();
-    }
-
     void OnTriggerEnter(Collider c)
     {
         if (master != null)
-            master.Trigger();
+        {
+            master.Hit();
+        }
     }
 }
