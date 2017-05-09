@@ -479,6 +479,7 @@ MonoBehaviour:
   target_x: 0
   target_y: 0
   speed: 0
+  c: {fileID: 0}
   master: {fileID: 114392665986948026}
 --- !u!114 &114392665986948026
 MonoBehaviour:
@@ -491,9 +492,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc0713fd390499c4b9239a2a7b9af090, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 5
   board: {fileID: 0}
   pivot: {fileID: 1525445492842416}
+  target_x: 5
 --- !u!114 &114503911223299910
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -508,6 +510,7 @@ MonoBehaviour:
   target_x: 0
   target_y: 0
   speed: 0
+  c: {fileID: 0}
   master: {fileID: 114392665986948026}
 --- !u!114 &114630578016456078
 MonoBehaviour:
@@ -523,6 +526,7 @@ MonoBehaviour:
   target_x: 0
   target_y: 0
   speed: 0
+  c: {fileID: 0}
   master: {fileID: 114392665986948026}
 --- !u!114 &114856088438870706
 MonoBehaviour:
@@ -538,4 +542,5 @@ MonoBehaviour:
   target_x: 0
   target_y: 0
   speed: 0
+  c: {fileID: 0}
   master: {fileID: 114392665986948026}
